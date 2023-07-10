@@ -14,8 +14,8 @@
        <tr>
         <td><button onclick="reset()" style="background-color: red;">AC</button></td>
         <td><button onclick="deleteLastCharacter()" >DEL</button></td>
-        <td><button onclick="appendValue('%')" >%</button></td>
-        <td><button onclick="" >AC</button></td>
+        <td><button onclick="appendValue('%')">%</button></td>
+        <td><button onclick="appendValue('^')">^</button></td>
       </tr>
       <tr>
         <td><button onclick="appendValue('7')">7</button></td>
@@ -52,7 +52,16 @@
 
     function calculate() {
       let result = document.getElementById('result');
+      let expression = result.value;
+      if (expression.includes('^')) {
+        let parts = expression.split('^');
+        let base = parseFloat(parts[0]);
+        let exponent = parseFloat(parts[1]);
+        let value = Math.pow(base, exponent);
+        result.value = value;
+      } else {
       result.value = eval(result.value); // Note: Using 'eval' can be unsafe, so be cautious with its usage in real-world scenarios
+    }
     }
 
     function reset() {
